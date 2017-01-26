@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2017;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import com.squareup.leakcanary.LeakCanary;
 
 import android.app.Application;
@@ -34,7 +36,8 @@ public class MainApplication extends Application {
         initCalligraphy();
         initLeakCanary();
 
-        Timber.plant(new CrashLogTree()); // TODO initialize Firebase before this line
+        Timber.plant(new CrashLogTree());
+        FirebaseCrash.log("Build info: branch = " + BuildConfig.GIT_BRANCH + ", sha = " + BuildConfig.GIT_SHA); // any equivalent method to crashlytics keys?
     }
 
     private void initCalligraphy() {
