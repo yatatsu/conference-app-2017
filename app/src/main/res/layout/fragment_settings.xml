@@ -84,6 +84,39 @@
                     android:visibility="@{viewModel.getShowHeadsUpSettingVisibility}"
                     />
 
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_16dp"
+                    >
+
+                <TextView
+                        style="@style/TextSubheading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_app_info_group"
+                        android:textColor="?attr/colorPrimary"
+                        />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/clickable"
+                    android:padding="@dimen/space_16dp"
+                    >
+                <TextView
+                        style="@style/SettingTitleText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.getDisplayVersion}"
+                        android:lines="1"
+                        />
+            </RelativeLayout>
+
+            <View style="@style/Border" />
+
         </LinearLayout>
 
     </ScrollView>

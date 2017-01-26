@@ -1,22 +1,29 @@
 package io.github.droidkaigi.confsched2017.viewmodel;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import javax.inject.Inject;
 
+import io.github.droidkaigi.confsched2017.BuildConfig;
+import io.github.droidkaigi.confsched2017.R;
 import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 
 public final class SettingsViewModel extends BaseObservable implements ViewModel {
 
     private Callback callback;
 
+    private final Context context;
+
     private final DefaultPrefs defaultPrefs;
 
     @Inject
-    SettingsViewModel(DefaultPrefs defaultPrefs) {
+    SettingsViewModel(AppCompatActivity context, DefaultPrefs defaultPrefs) {
+        this.context = context;
         this.defaultPrefs = defaultPrefs;
     }
 
@@ -57,6 +64,10 @@ public final class SettingsViewModel extends BaseObservable implements ViewModel
         if (callback != null) {
             callback.changeHeadsUpEnabled(isChecked);
         }
+    }
+
+    public String getDisplayVersion() {
+        return context.getString(R.string.settings_display_version, BuildConfig.VERSION_NAME, BuildConfig.GIT_SHA);
     }
 
     @Override
