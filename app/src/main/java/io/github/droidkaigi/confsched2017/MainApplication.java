@@ -26,6 +26,9 @@ import io.github.droidkaigi.confsched2017.pref.DefaultPrefs;
 import io.github.droidkaigi.confsched2017.service.DebugOverlayService;
 import io.github.droidkaigi.confsched2017.util.AppShortcutsUtil;
 import io.github.droidkaigi.confsched2017.util.LocaleUtil;
+import io.reactivex.exceptions.Exceptions;
+import io.reactivex.exceptions.UndeliverableException;
+import io.reactivex.plugins.RxJavaPlugins;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -77,6 +80,14 @@ public class MainApplication extends Application {
             startService(new Intent(this, DebugOverlayService.class));
         }
         initDebot();
+
+        RxJavaPlugins.setErrorHandler(t -> {
+            Timber.e(t, "Error happened somewhere but not handled.");
+            if (t instanceof UndeliverableException) {
+                return;
+            }
+            throw Exceptions.propagate(t);
+        });
     }
 
     private void initCalligraphy() {
